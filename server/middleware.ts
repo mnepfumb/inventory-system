@@ -1,3 +1,5 @@
+// NOTE: moved out of project root because `middleware.ts` is incompatible with `output: 'export'`.
+// This file is preserved for reference and local/server deployments.
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
