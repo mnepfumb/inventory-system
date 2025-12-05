@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model InventoryItem {
+  id              String   @id @default(cuid())
+  sku             String   @unique
+  name            String
+  description     String?
+  category        String
+  quantity        Int      @default(0)
+  price           Float    @default(0)
+  cost            Float    @default(0)
+  minStockLevel   Int      @default(0)
+  maxStockLevel   Int
+  location        String
+  supplier        String?
+  barcode         String?
+  lastRestocked   DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  transactions    InventoryTransaction[]
+  
+  @@index([sku])
+  @@index([category])
+  @@index([location])
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  items       InventoryItem[]
+}
+
+model InventoryTransaction {
+  id              String   @id @default(cuid())
+  type            String   // IN, OUT, ADJUSTMENT
+  quantity        Int
+  previousQuantity Int
+  newQuantity     Int
+  reason          String?
+  performedBy     String
+  itemId          String
+  item            InventoryItem @relation(fields: [itemId], references: [id])
+  createdAt       DateTime @default(now())
+}
