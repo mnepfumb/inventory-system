@@ -58,30 +58,34 @@ export default function Header() {
   }
 
   return (
-    <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-      <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-        <div className="relative flex-1">
+    <div className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-x-2 md:gap-x-4 border-b border-gray-200 bg-white px-3 sm:px-4 md:px-6 lg:px-8 shadow-sm">
+      <div className="flex flex-1 gap-x-2 md:gap-x-4 self-stretch md:gap-x-6 items-center">
+        {/* Search - hidden on mobile, visible on tablet+ */}
+        <div className="relative hidden sm:flex flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <Input
-            placeholder="Search inventory, orders, suppliers..."
-            className="pl-10 bg-gray-50 border-gray-200 focus:border-blue-300"
+            placeholder="Search inventory..."
+            className="pl-10 bg-gray-50 border-gray-200 focus:border-blue-300 text-sm"
           />
         </div>
-        <div className="flex items-center gap-x-4 lg:gap-x-6">
+        <div className="flex items-center gap-x-1 md:gap-x-4 lg:gap-x-6 ml-auto">
+          {/* Notification Bell */}
           <Link
             href="/notifications"
-            className="relative p-2 text-gray-500 hover:text-gray-700"
+            className="relative p-2.5 md:p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+            aria-label="Notifications"
           >
             <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500"></span>
+            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-red-500"></span>
           </Link>
           
-          <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
+          <div className="hidden md:block md:h-6 md:w-px md:bg-gray-200"></div>
           
+          {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-x-3">
-                <div className="h-8 w-8 rounded-full bg-gray-100 overflow-hidden">
+              <Button variant="ghost" className="flex items-center gap-x-2 md:gap-x-3 p-2 md:p-0 hover:bg-gray-50 rounded-lg">
+                <div className="h-8 w-8 rounded-full bg-gray-100 overflow-hidden flex-shrink-0">
                   {user.avatar ? (
                     <img 
                       src={user.avatar} 
@@ -92,17 +96,17 @@ export default function Header() {
                     <User className="h-5 w-5 text-gray-600" />
                   )}
                 </div>
-                <div className="hidden lg:block text-left">
+                <div className="hidden md:block text-left">
                   <p className="text-sm font-medium text-gray-900">{user.fullName}</p>
-                  <p className="text-xs text-gray-500">{user.email}</p>
+                  <p className="text-xs text-gray-500 truncate">{user.email}</p>
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="end" className="w-48 sm:w-56">
               <DropdownMenuLabel>
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{user.fullName}</p>
-                  <p className="text-xs leading-none text-gray-500">{user.email}</p>
+                  <p className="text-sm font-medium leading-none truncate">{user.fullName}</p>
+                  <p className="text-xs leading-none text-gray-500 truncate">{user.email}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <Shield className="h-3 w-3" />
                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
@@ -112,20 +116,20 @@ export default function Header() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+              <DropdownMenuItem onClick={() => router.push('/dashboard')} className="p-3 md:p-2 cursor-pointer">
                 <Home className="mr-2 h-4 w-4" />
                 <span>Dashboard</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push('/profile')}>
+              <DropdownMenuItem onClick={() => router.push('/profile')} className="p-3 md:p-2 cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
                 <span>Profile</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push('/settings')}>
+              <DropdownMenuItem onClick={() => router.push('/settings')} className="p-3 md:p-2 cursor-pointer">
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logout} className="text-red-600">
+              <DropdownMenuItem onClick={logout} className="text-red-600 p-3 md:p-2 cursor-pointer">
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>

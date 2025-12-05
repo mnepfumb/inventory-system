@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { 
   Home, 
@@ -14,10 +15,13 @@ import {
   Bell,
   Shield,
   User,
-  ShoppingCart
+  ShoppingCart,
+  Menu,
+  X
 } from 'lucide-react'
 
 export default function Sidebar() {
+  const [mobileOpen, setMobileOpen] = useState(false)
   const { user, hasPermission } = useAuth()
 
   const navItems = [
@@ -86,8 +90,29 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
+    <>
+      {/* Mobile menu button - only on mobile */}
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="md:hidden fixed top-4 left-4 z-50 p-2.5 rounded-lg hover:bg-gray-100 active:bg-gray-200"
+        aria-label="Toggle menu"
+      >
+        {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+      </button>
+
+      {/* Mobile overlay - only on mobile */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-40"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Sidebar - hidden on mobile, visible on md+ */}
+      <div className={`${
+        mobileOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0 md:static fixed top-0 left-0 inset-y-0 z-40 w-72 flex flex-col transition-transform duration-300 ease-in-out md:transition-none md:relative md:border-r md:border-gray-200`}>
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-4 md:px-6 pb-4 pt-16 md:pt-0">
         {/* Logo */}
         <div className="flex h-16 shrink-0 items-center">
           <Link href="/dashboard" className="flex items-center gap-3">
@@ -141,7 +166,8 @@ export default function Sidebar() {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                        onClick={() => setMobileOpen(false)}
+                        className="group flex gap-x-3 rounded-md p-3 md:p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 active:bg-gray-100 md:active:bg-transparent"
                       >
                         <Icon className="h-5 w-5 shrink-0 text-gray-400 group-hover:text-blue-600" />
                         {item.name}
@@ -166,7 +192,8 @@ export default function Sidebar() {
                 <li>
                   <Link
                     href="/inventory/add"
-                    className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                    className="group flex gap-x-3 rounded-md p-3 md:p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 active:bg-gray-100 md:active:bg-transparent"
                   >
                     <Package className="h-5 w-5 shrink-0 text-gray-400 group-hover:text-blue-600" />
                     Add New Item
@@ -175,7 +202,8 @@ export default function Sidebar() {
                 <li>
                   <Link
                     href="/profile"
-                    className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                    className="group flex gap-x-3 rounded-md p-3 md:p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 active:bg-gray-100 md:active:bg-transparent"
                   >
                     <User className="h-5 w-5 shrink-0 text-gray-400 group-hover:text-blue-600" />
                     My Profile
@@ -202,6 +230,7 @@ export default function Sidebar() {
         </nav>
       </div>
     </div>
+      </>
   )
 }
 

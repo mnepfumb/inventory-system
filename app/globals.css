@@ -19,8 +19,73 @@
   }
 }
 
+/* Mobile optimizations */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  -webkit-touch-callout: none;
+}
+
+/* Touch-friendly tap targets (minimum 44x44px for mobile) */
+button,
+a,
+input[type="checkbox"],
+input[type="radio"],
+[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Remove default iOS tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Optimize inputs for mobile (prevent zoom on iOS) */
+input,
+textarea,
+select {
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+/* Smooth transitions */
+button,
+a,
+input,
+textarea,
+select {
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s ease-out;
+}
+
+/* Prevent horizontal scroll on mobile */
+body,
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Mobile-first improvements */
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+  
+  main {
+    overflow-x: hidden;
+  }
+  
+  /* Larger tap targets on mobile */
+  button,
+  a,
+  [role="button"] {
+    padding: 0.75rem;
+  }
 }
