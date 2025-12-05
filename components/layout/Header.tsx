@@ -22,9 +22,9 @@ export default function Header() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin': return 'bg-red-100 text-red-800'
-      case 'manager': return 'bg-blue-100 text-blue-800'
-      case 'staff': return 'bg-green-100 text-green-800'
-      case 'viewer': return 'bg-gray-100 text-gray-800'
+      case 'head_office': return 'bg-blue-100 text-blue-800'
+      case 'warehouse': return 'bg-green-100 text-green-800'
+      case 'store': return 'bg-purple-100 text-purple-800'
       default: return 'bg-gray-100 text-gray-800'
     }
   }
@@ -32,10 +32,19 @@ export default function Header() {
   const getRoleLabel = (role: string) => {
     switch (role) {
       case 'admin': return 'Administrator'
-      case 'manager': return 'Manager'
-      case 'staff': return 'Staff'
-      case 'viewer': return 'Viewer'
+      case 'head_office': return 'Head Office'
+      case 'warehouse': return 'Warehouse'
+      case 'store': return 'Store'
       default: return role
+    }
+  }
+
+  const getOrgLabel = (org: string) => {
+    switch (org) {
+      case 'head_office': return 'Head Office'
+      case 'warehouse': return 'Warehouse'
+      case 'store': return 'Store'
+      default: return org
     }
   }
 
@@ -107,12 +116,22 @@ export default function Header() {
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none truncate">{user.fullName}</p>
                   <p className="text-xs leading-none text-gray-500 truncate">{user.email}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Shield className="h-3 w-3" />
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
-                      {getRoleLabel(user.role)}
-                    </span>
+                  <div className="flex items-center gap-2 mt-2 flex-wrap">
+                    <div className="flex items-center gap-1">
+                      <Shield className="h-3 w-3" />
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
+                        {getRoleLabel(user.role)}
+                      </span>
+                    </div>
+                    {user.organization && (
+                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                        {getOrgLabel(user.organization)}
+                      </span>
+                    )}
                   </div>
+                  {user.locationCode && (
+                    <p className="text-xs text-gray-500 mt-1">📍 {user.locationCode}</p>
+                  )}
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />

@@ -44,44 +44,51 @@ export default function Sidebar() {
       requiredPermission: 'categories:read' 
     },
     { 
-      name: 'Suppliers', 
-      href: '/suppliers', 
+      name: 'Transfers', 
+      href: '/transfers', 
       icon: Truck, 
-      requiredPermission: null 
-    },
-    { 
-      name: 'Orders', 
-      href: '/orders', 
-      icon: ShoppingCart, 
-      requiredPermission: null 
+      requiredPermission: 'transfers:read',
+      visibleFor: ['head_office', 'warehouse', 'admin']
     },
     { 
       name: 'Reports', 
       href: '/reports', 
       icon: BarChart3, 
-      requiredPermission: 'reports:read' 
+      requiredPermission: 'reports:read',
+      visibleFor: ['head_office', 'warehouse', 'admin']
     },
     { 
       name: 'Users', 
       href: '/users', 
       icon: Users, 
       requiredPermission: 'users:read',
-      badge: user?.role === 'admin' ? 'Admin' : undefined
+      visibleFor: ['admin']
     },
     { 
       name: 'Settings', 
       href: '/settings', 
       icon: Settings, 
-      requiredPermission: 'settings:update' 
+      requiredPermission: 'settings:update',
+      visibleFor: ['admin', 'head_office']
     },
   ]
 
-  const filteredNavItems = navItems.filter(item => 
-    !item.requiredPermission || (user && hasPermission(
+  const filteredNavItems = navItems.filter(item => {
+    // Check if user has required permission
+    if (item.requiredPermission && !hasPermission(
       item.requiredPermission.split(':')[0],
       item.requiredPermission.split(':')[1]
-    ))
-  )
+    )) {
+      return false
+    }
+    
+    // Check if role is allowed to see this item
+    if (item.visibleFor && !item.visibleFor.includes(user?.role || '')) {
+      return false
+    }
+    
+    return true
+  })
 
   // Quick links for easier access
   const quickLinks = [
@@ -171,11 +178,6 @@ export default function Sidebar() {
                       >
                         <Icon className="h-5 w-5 shrink-0 text-gray-400 group-hover:text-blue-600" />
                         {item.name}
-                        {item.badge && (
-                          <span className="ml-auto px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                            {item.badge}
-                          </span>
-                        )}
                       </Link>
                     </li>
                   )

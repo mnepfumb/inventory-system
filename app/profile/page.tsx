@@ -38,9 +38,9 @@ export default function ProfilePage() {
   const getRoleLabel = (role: string) => {
     switch (role) {
       case 'admin': return 'Administrator'
-      case 'manager': return 'Manager'
-      case 'staff': return 'Staff'
-      case 'viewer': return 'Viewer'
+      case 'head_office': return 'Head Office'
+      case 'warehouse': return 'Warehouse'
+      case 'store': return 'Store'
       default: return role
     }
   }
@@ -48,10 +48,19 @@ export default function ProfilePage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin': return 'bg-red-100 text-red-800'
-      case 'manager': return 'bg-blue-100 text-blue-800'
-      case 'staff': return 'bg-green-100 text-green-800'
-      case 'viewer': return 'bg-gray-100 text-gray-800'
+      case 'head_office': return 'bg-blue-100 text-blue-800'
+      case 'warehouse': return 'bg-green-100 text-green-800'
+      case 'store': return 'bg-purple-100 text-purple-800'
       default: return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  const getOrgLabel = (org: string) => {
+    switch (org) {
+      case 'head_office': return 'Head Office'
+      case 'warehouse': return 'Warehouse'
+      case 'store': return 'Store'
+      default: return org
     }
   }
 
@@ -229,7 +238,7 @@ export default function ProfilePage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Role Information</CardTitle>
+              <CardTitle>Role & Organization</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -240,47 +249,61 @@ export default function ProfilePage() {
                   <div>
                     <p className="font-medium">{getRoleLabel(user.role)}</p>
                     <p className="text-sm text-gray-500">
-                      {user.role === 'admin' && 'Full system access'}
-                      {user.role === 'manager' && 'Inventory management access'}
-                      {user.role === 'staff' && 'Limited inventory access'}
-                      {user.role === 'viewer' && 'Read-only access'}
+                      {user.role === 'admin' && 'Full system access and administration'}
+                      {user.role === 'head_office' && 'Head office management and oversight'}
+                      {user.role === 'warehouse' && 'Warehouse operations management'}
+                      {user.role === 'store' && 'Store inventory management'}
                     </p>
                   </div>
                 </div>
 
+                {user.organization && (
+                  <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+                    <Building className="w-5 h-5 text-blue-600" />
+                    <div>
+                      <p className="font-medium text-sm">{getOrgLabel(user.organization)}</p>
+                      <p className="text-xs text-gray-600">Location: {user.locationCode || 'N/A'}</p>
+                    </div>
+                  </div>
+                )}
+
                 <div className="p-3 bg-gray-50 rounded-lg">
-                  <p className="text-sm font-medium mb-2">Permissions:</p>
+                  <p className="text-sm font-medium mb-2">Key Permissions:</p>
                   <ul className="text-sm text-gray-600 space-y-1">
                     {user.role === 'admin' && (
                       <>
-                        <li>• Manage all inventory operations</li>
-                        <li>• Manage users and permissions</li>
+                        <li>• Full system administration</li>
+                        <li>• Manage all users and roles</li>
                         <li>• Access all reports and analytics</li>
-                        <li>• Configure system settings</li>
+                        <li>• System settings and configuration</li>
+                        <li>• Cross-organization visibility</li>
                       </>
                     )}
-                    {user.role === 'manager' && (
+                    {user.role === 'head_office' && (
                       <>
-                        <li>• View and manage inventory</li>
-                        <li>• Create and update categories</li>
-                        <li>• View reports and analytics</li>
-                        <li>• Cannot manage users</li>
+                        <li>• Manage all inventory operations</li>
+                        <li>• View all locations and warehouses</li>
+                        <li>• Approve inventory transfers</li>
+                        <li>• Access comprehensive reports</li>
+                        <li>• Create and manage categories</li>
                       </>
                     )}
-                    {user.role === 'staff' && (
+                    {user.role === 'warehouse' && (
                       <>
-                        <li>• View inventory items</li>
-                        <li>• Create and update items</li>
-                        <li>• Cannot delete items</li>
-                        <li>• Limited category access</li>
+                        <li>• Manage warehouse inventory</li>
+                        <li>• Process inventory transfers</li>
+                        <li>• View warehouse reports</li>
+                        <li>• Track stock levels</li>
+                        <li>• Limited inter-location visibility</li>
                       </>
                     )}
-                    {user.role === 'viewer' && (
+                    {user.role === 'store' && (
                       <>
-                        <li>• View inventory items</li>
-                        <li>• View categories</li>
-                        <li>• Read-only access</li>
-                        <li>• No editing permissions</li>
+                        <li>• View store inventory</li>
+                        <li>• Update stock levels</li>
+                        <li>• View transfer status</li>
+                        <li>• Generate store reports</li>
+                        <li>• Local inventory management only</li>
                       </>
                     )}
                   </ul>

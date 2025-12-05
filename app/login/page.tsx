@@ -51,10 +51,12 @@ export default function LoginPage() {
   }
 
   const demoCredentials = [
-    { email: 'admin@inventory.com', password: 'admin123', role: 'Admin' },
-    { email: 'manager@inventory.com', password: 'manager123', role: 'Manager' },
-    { email: 'staff@inventory.com', password: 'staff123', role: 'Staff' },
-    { email: 'viewer@inventory.com', password: 'viewer123', role: 'Viewer' },
+    { email: 'ceo@headoffice.com', password: 'ceo123', role: 'Admin (Head Office)', org: 'HO-001' },
+    { email: 'inventory-manager@headoffice.com', password: 'manager123', role: 'Head Office Manager', org: 'HO-002' },
+    { email: 'warehouse-lead@warehouse.com', password: 'warehouse123', role: 'Warehouse Lead', org: 'WH-001' },
+    { email: 'warehouse-staff@warehouse.com', password: 'staff123', role: 'Warehouse Staff', org: 'WH-001' },
+    { email: 'store-manager@store.com', password: 'store123', role: 'Store Manager', org: 'ST-001' },
+    { email: 'cashier@store.com', password: 'cashier123', role: 'Cashier', org: 'ST-001' },
   ]
 
   const useDemoAccount = (email: string, password: string) => {
@@ -170,6 +172,7 @@ export default function LoginPage() {
                       <div>
                         <p className="font-medium text-gray-900">{cred.role}</p>
                         <p className="text-sm text-gray-500">{cred.email}</p>
+                        <p className="text-xs text-gray-400 mt-1">📍 {cred.org}</p>
                       </div>
                       <div className="text-sm text-blue-600 font-medium">
                         Use this
@@ -181,8 +184,10 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-6 text-center text-sm text-gray-600">
-              <p>Default password for all accounts: <code>role123</code></p>
-              <p className="mt-2">(admin123, manager123, staff123, viewer123)</p>
+              <p>Demo Passwords:</p>
+              <p className="mt-2 text-xs text-gray-500">
+                CEO: ceo123 | Manager: manager123 | Warehouse: warehouse123 | Store: store123
+              </p>
             </div>
           </CardContent>
         </Card>
