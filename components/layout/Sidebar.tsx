@@ -44,10 +44,10 @@ export default function Sidebar() {
       requiredPermission: 'categories:read' 
     },
     { 
-      name: 'Transfers', 
-      href: '/transfers', 
+      name: 'Suppliers', 
+      href: '/suppliers', 
       icon: Truck, 
-      requiredPermission: 'transfers:read',
+      requiredPermission: 'suppliers:read',
       visibleFor: ['head_office', 'warehouse', 'admin']
     },
     { 

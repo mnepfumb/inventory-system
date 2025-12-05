@@ -123,28 +123,28 @@ const permissions: Record<string, string[]> = {
     'categories:create', 'categories:read', 'categories:update', 'categories:delete',
     'reports:read', 'reports:export',
     'settings:update', 'settings:configure',
-    'transfers:create', 'transfers:read', 'transfers:approve',
+    'suppliers:create', 'suppliers:read', 'suppliers:update', 'suppliers:delete', 'suppliers:approve',
   ],
   head_office: [
     // Head office can manage all inventory and view all locations
     'inventory:read', 'inventory:update',
     'categories:read', 'categories:create',
     'reports:read', 'reports:export',
-    'transfers:read', 'transfers:approve',
+    'suppliers:read', 'suppliers:update', 'suppliers:approve',
     'locations:read', 'locations:manage'
   ],
   warehouse: [
-    // Warehouse can manage local inventory and process transfers
+    // Warehouse can manage local inventory and process suppliers
     'inventory:read', 'inventory:update', 'inventory:create',
     'categories:read',
-    'transfers:read', 'transfers:create',
+    'suppliers:read', 'suppliers:create', 'suppliers:update',
     'reports:read'
   ],
   store: [
     // Store can only view and update local inventory
     'inventory:read', 'inventory:update',
     'categories:read',
-    'transfers:read',
+    'suppliers:read',
     'reports:read'
   ]
 }

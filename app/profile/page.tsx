@@ -283,7 +283,7 @@ export default function ProfilePage() {
                       <>
                         <li>• Manage all inventory operations</li>
                         <li>• View all locations and warehouses</li>
-                        <li>• Approve inventory transfers</li>
+                        <li>• Approve inventory suppliers</li>
                         <li>• Access comprehensive reports</li>
                         <li>• Create and manage categories</li>
                       </>
@@ -291,7 +291,7 @@ export default function ProfilePage() {
                     {user.role === 'warehouse' && (
                       <>
                         <li>• Manage warehouse inventory</li>
-                        <li>• Process inventory transfers</li>
+                        <li>• Process inventory suppliers</li>
                         <li>• View warehouse reports</li>
                         <li>• Track stock levels</li>
                         <li>• Limited inter-location visibility</li>
@@ -301,7 +301,7 @@ export default function ProfilePage() {
                       <>
                         <li>• View store inventory</li>
                         <li>• Update stock levels</li>
-                        <li>• View transfer status</li>
+                        <li>• View supplier status</li>
                         <li>• Generate store reports</li>
                         <li>• Local inventory management only</li>
                       </>
