@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 const suppliers = [
   {
@@ -68,6 +69,8 @@ const suppliers = [
   },
 ]
 
+
+
 export default function SuppliersPage() {
   const { user } = useAuth()
   const [searchTerm, setSearchTerm] = useState('')
@@ -79,6 +82,7 @@ export default function SuppliersPage() {
   )
 
   return (
+    <ProtectedRoute requiredPermission="suppliers:read">
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -312,5 +316,6 @@ export default function SuppliersPage() {
         </Card>
       </div>
     </div>
+    </ProtectedRoute>
   )
 }

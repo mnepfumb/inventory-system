@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import { 
   User, Mail, Phone, Building, Shield, 
   Save, Camera, Lock, Calendar 
@@ -11,6 +12,14 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function ProfilePage() {
+  return (
+    <ProtectedRoute>
+      <ProfilePageContent />
+    </ProtectedRoute>
+  )
+}
+
+function ProfilePageContent() {
   const { user } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
@@ -28,7 +37,6 @@ export default function ProfilePage() {
       </div>
     )
   }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsEditing(false)

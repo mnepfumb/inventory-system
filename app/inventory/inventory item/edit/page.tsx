@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 // Mock data for demonstration
 const mockInventoryItems = [
@@ -141,6 +142,7 @@ export default function EditInventoryPage() {
   }
 
   return (
+    <ProtectedRoute requiredPermission="inventory:update">
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-6">
@@ -503,5 +505,6 @@ export default function EditInventoryPage() {
         </div>
       </form>
     </div>
+    </ProtectedRoute>
   )
 }

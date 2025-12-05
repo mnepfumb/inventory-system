@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 // Mock data for demonstration
 const mockInventoryItems = [
@@ -135,6 +136,7 @@ export default function InventoryItemPage() {
   const stockStatus = getStockStatus(item.quantity, item.minStockLevel)
 
   return (
+    <ProtectedRoute requiredPermission="inventory:read">
     <div className="max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-6">
@@ -484,5 +486,6 @@ export default function InventoryItemPage() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   )
 }

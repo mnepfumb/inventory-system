@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Plus, Edit, Trash2, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 const categories = [
   { id: 1, name: 'Electronics', count: 45, description: 'Electronic devices and accessories' },
@@ -15,6 +16,14 @@ const categories = [
 ]
 
 export default function CategoriesPage() {
+  return (
+    <ProtectedRoute requiredPermission="categories:read">
+      <CategoriesPageContent />
+    </ProtectedRoute>
+  )
+}
+
+function CategoriesPageContent() {
   const [searchTerm, setSearchTerm] = useState('')
   const [showForm, setShowForm] = useState(false)
   const [newCategory, setNewCategory] = useState({ name: '', description: '' })

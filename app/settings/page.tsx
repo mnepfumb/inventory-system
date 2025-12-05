@@ -10,9 +10,19 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 export default function SettingsPage() {
+  return (
+    <ProtectedRoute requiredPermission="settings:update">
+      <SettingsPageContent />
+    </ProtectedRoute>
+  )
+}
+
+function SettingsPageContent() {
   const { user } = useAuth()
+
   const [isSaving, setIsSaving] = useState(false)
 
   // General Settings

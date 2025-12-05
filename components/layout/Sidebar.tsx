@@ -73,7 +73,7 @@ export default function Sidebar() {
     },
   ]
 
-  const filteredNavItems = navItems.filter(item => {
+  const filteredNavItems = !user ? [] : navItems.filter(item => {
     // Check if user has required permission
     if (item.requiredPermission && !hasPermission(
       item.requiredPermission.split(':')[0],

@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 const orders = [
   {
@@ -99,6 +100,7 @@ export default function OrdersPage() {
   }
 
   return (
+    <ProtectedRoute requiredPermission="orders:read">
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -295,5 +297,6 @@ export default function OrdersPage() {
         </Card>
       </div>
     </div>
+    </ProtectedRoute>
   )
 }

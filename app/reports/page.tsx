@@ -66,9 +66,19 @@ const reports = [
     icon: FileText,
   },
 ]
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 
 export default function ReportsPage() {
+  return (
+    <ProtectedRoute requiredPermission="reports:read">
+      <ReportsPageContent />
+    </ProtectedRoute>
+  )
+}
+
+function ReportsPageContent() {
   const { user } = useAuth()
+
   const [selectedReportType, setSelectedReportType] = useState('all')
 
   const filteredReports = selectedReportType === 'all' 
